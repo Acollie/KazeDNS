@@ -1,19 +1,19 @@
 package resolver
 
 import (
+	"dns-server/blocklist"
 	"github.com/miekg/dns"
 )
 
 type Handler struct {
 	cache     dnsCache
-	blocklist blockList
+	blocklist *blocklist.BlocksCli
 }
-type blockList map[string]bool
 type dnsCache map[string]*dns.Msg
 
 func New() *Handler {
 	return &Handler{
 		cache:     make(dnsCache),
-		blocklist: make(blockList),
+		blocklist: blocklist.New(),
 	}
 }
