@@ -7,12 +7,6 @@ import (
 	"log"
 )
 
-const (
-	dnsPort         = 53
-	DnsCloudFlare   = "1.1.1.1"
-	DnsGoogleServer = "8.8.8.8"
-)
-
 func (h *Handler) DNSResolver(w dns.ResponseWriter, r *dns.Msg) error {
 	c := new(dns.Client)
 	m := new(dns.Msg)
