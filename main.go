@@ -16,18 +16,21 @@ func main() {
 	port := 8888
 	flag.Parse()
 
-	handler := resolver.New()
+	config := &dns.ClientConfig{
+		Servers: []string{resolver.DnsGoogleServer, resolver.DnsCloudFlare},
+	}
+
+	handler := resolver.New(config)
 
 	for z := range resolver.Zones {
 		z := z
 		dns.HandleFunc(z, func(writer dns.ResponseWriter, msg *dns.Msg) {
-			handler.DNSResolver(writer, msg)
+			err := handler.DNSResolver(writer, msg)
+			if err != nil {
+				log.Printf("Failed to resolve %s: %v", z, err)
+			}
 		})
 	}
-
-	dns.HandleFunc(".", func(writer dns.ResponseWriter, msg *dns.Msg) {
-		handler.DNSResolver(writer, msg)
-	})
 
 	go func() {
 		srv := &dns.Server{Addr: ":" + strconv.Itoa(port), Net: "udp"}

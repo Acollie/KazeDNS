@@ -28,3 +28,9 @@ var Zones = map[string]dns.RR{
 
 // NewRR is a shortcut to dns.NewRR that ignores the error.
 func NewRR(s string) dns.RR { r, _ := dns.NewRR(s); return r }
+
+const (
+	dnsPort         = 53
+	DnsCloudFlare   = "1.1.1.1"
+	DnsGoogleServer = "8.8.8.8"
+)

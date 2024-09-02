@@ -13,7 +13,7 @@ func (b blockList) Batch(batch BatchBlock) error {
 	for _, item := range batch.urls {
 		err := b.add(item)
 		switch {
-		case errors.Is(err, errors.Is(err, alreadyExists)):
+		case errors.Is(err, alreadyExists):
 			continue
 		default:
 			continue
