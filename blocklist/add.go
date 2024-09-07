@@ -8,3 +8,7 @@ func (b blockList) add(url string) error {
 	b[url] = true
 	return nil
 }
+
+func (b blockList) Add(url string) error {
+	return b.add(url)
+}

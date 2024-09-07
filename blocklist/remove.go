@@ -8,3 +8,7 @@ func (b blockList) remove(url string) error {
 	delete(b, url)
 	return nil
 }
+
+func (b blockList) Remove(url string) error {
+	return b.remove(url)
+}

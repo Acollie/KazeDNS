@@ -7,3 +7,11 @@ func (b blockList) Check(url string) error {
 	}
 	return nil
 }
+
+func (b blockList) Get() []string {
+	var urls []string
+	for url := range b {
+		urls = append(urls, url)
+	}
+	return urls
+}

@@ -3,13 +3,14 @@ package main
 import (
 	"dns-server/resolver"
 	"flag"
+	"github.com/miekg/dns"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"strconv"
 	"syscall"
-
-	"github.com/miekg/dns"
 )
 
 func main() {
@@ -45,6 +46,14 @@ func main() {
 			log.Fatalf("Failed to set tcp listener %s\n", err.Error())
 		}
 	}()
+	http.Handle("/metrics", promhttp.Handler())
+	http.Handle("/remove", http.HandlerFunc(handler.Remove))
+	http.Handle("/add", http.HandlerFunc(handler.Add))
+	http.Handle("/list", http.HandlerFunc(handler.Get))
+	http.Handle("/health", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	http.ListenAndServe(":2112", nil)
 
 	sig := make(chan os.Signal)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
