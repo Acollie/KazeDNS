@@ -4,6 +4,10 @@ import "github.com/miekg/dns"
 
 const SOA string = "@ SOA prisoner.iana.org. hostmaster.root-servers.org. 2002040800 1800 900 0604800 604800"
 
+const (
+	httpInputQuery = "inputURL"
+)
+
 var Zones = map[string]dns.RR{
 	"10.in-addr.arpa.":      NewRR("$ORIGIN 10.in-addr.arpa.\n" + SOA),
 	"254.169.in-addr.arpa.": NewRR("$ORIGIN 254.169.in-addr.arpa.\n" + SOA),

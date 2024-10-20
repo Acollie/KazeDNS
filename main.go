@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dns-server/blocklist"
 	"dns-server/resolver"
 	"flag"
 	"github.com/miekg/dns"
@@ -46,9 +47,13 @@ func main() {
 			log.Fatalf("Failed to set tcp listener %s\n", err.Error())
 		}
 	}()
+
+	defaultList := blocklist.LoadBlockList("https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts")
+	handler.AddBatch(defaultList)
+
 	http.Handle("/metrics", promhttp.Handler())
 	http.Handle("/remove", http.HandlerFunc(handler.Remove))
-	http.Handle("/add", http.HandlerFunc(handler.Add))
+	http.Handle("/add", http.HandlerFunc(handler.AddHttp))
 	http.Handle("/list", http.HandlerFunc(handler.Get))
 	http.Handle("/health", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
