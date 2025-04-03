@@ -36,7 +36,7 @@ You can also run KazeDNS in a Docker container.
 Customize KazeDNS by editing the main.go file. This file allows you to set parameters such as the DNS root server, blocklist paths, and Prometheus metrics endpoint.
 ## 📊 Monitoring
 
-KazeDNS exposes metrics compatible with Prometheus. To enable monitoring, ensure Prometheus is configured to scrape metrics from the endpoint specified in the config.yaml file.
+KazeDNS exposes metrics compatible with Prometheus. To enable monitoring, ensure Prometheus is configured to scrape metrics, by default this is on port 2121 /metrics.
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to fork the repository, create a new branch for your feature or bug fix, and submit a pull request.
