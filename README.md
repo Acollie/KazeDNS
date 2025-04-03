@@ -28,6 +28,7 @@ Run the Server:
 ```bash
     ./KazeDNS
 ```
+You can also run KazeDNS in a Docker container. 
 
 
 ## ⚙️ Configuration
