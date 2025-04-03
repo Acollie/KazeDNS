@@ -14,8 +14,11 @@ import (
 	"syscall"
 )
 
+const (
+	port = 8888
+)
+
 func main() {
-	port := 8888
 	flag.Parse()
 
 	config := &dns.ClientConfig{
@@ -57,6 +60,9 @@ func main() {
 	http.Handle("/list", http.HandlerFunc(handler.Get))
 	http.Handle("/health", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"status":"ok"}`))
+		return
 	}))
 	http.ListenAndServe(":2112", nil)
 
