@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	port = 8888
+	port = 53
 )
 
 func main() {

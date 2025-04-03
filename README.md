@@ -29,6 +29,7 @@ Run the Server:
     ./KazeDNS
 ```
 
+
 ## ⚙️ Configuration
 
 Customize KazeDNS by editing the main.go file. This file allows you to set parameters such as the DNS root server, blocklist paths, and Prometheus metrics endpoint.
